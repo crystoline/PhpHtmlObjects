@@ -1,0 +1,12 @@
+{
+    "name": "crystoline/phphtmlobjects",
+    "description": "Php Html Classes",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Adekunle Adekoya",
+            "email": "crystoline@gmail.com"
+        }
+    ],
+    "require": {}
+}
