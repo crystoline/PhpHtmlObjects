@@ -1,13 +1,14 @@
 <?php
 namespace com\crysto\html;
 
+
 /**
  * HTML Input object
  * @author crysto
  *
  */
 
-class Input extends \com\crysto\html\Html{
+class Input extends Html{
 	/**
 	 *
 	 * @param string $type

@@ -6,13 +6,17 @@ namespace com\crysto\html;
  * @namespace com\crysto\html
  */
 class LinkList extends UList{
-	
 
-	/**
-	 * Add linked list items to the next index;
-	 * (non-PHPdoc)
-	 * @see \com\crysto\html\Html::add()
-	 */
+
+    /**
+     * Add linked list items to the next index;
+     * (non-PHPdoc)
+     * @see \com\crysto\html\Html::add()
+     * @param $href
+     * @param $content
+     * @param string $title
+     * @return LinkList
+     */
 	final function addLink ($href, $content, $title=''){
 
 			$link = new Anchor($href, $content, $title);
@@ -22,8 +26,8 @@ class LinkList extends UList{
 	
 	/**
 	 * add more content to list to a given index
-	 * @param unknown $index
-	 * @param unknown $content
+	 * @param int $index
+	 * @param string|Html $content
 	 * @return \com\crysto\html\LinkList
 	 */
 	final function addLinkContent($index,$content){
@@ -32,17 +36,27 @@ class LinkList extends UList{
 		$this->contents[$index]->contents[0]->add($content);
 		return $this;
 	}
-	
-	
 
-	final function linklistAttr($index,$array = array()){
+
+    /**
+     *  add List link
+     * @param $index
+     * @param array $array
+     * @return $this
+     */
+    final function linklistAttr($index, $array = array()){
 		if (!is_int($index)) return $this;
 		if ($index >= count($this->contents)) return $this;
 		$this->contents[$index]->contents[0]->attr($array);
 		return $this;
 	}
-	
-	final function linklistStyle($index,$array = array()){
+
+    /**
+     * @param $index
+     * @param array $array
+     * @return $this
+     */
+    final function linklistStyle($index, $array = array()){
 		if (!is_int($index)) return $this;
 		if ($index >= count($this->contents)) return $this;
 		$this->contents[$index]->contents[0]->style($array);

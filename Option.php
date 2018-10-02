@@ -8,7 +8,7 @@ namespace com\crysto\html;
 class Option extends HtmlBox{
 	/**
 	 *
-	 * @param unknown $text
+	 * @param string $text
 	 * @param string $value
 	 */
 	function __construct($text, $value=NULL){

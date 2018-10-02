@@ -28,23 +28,22 @@ class Html{
 	use HtmlTrait;
 	protected $tag, $attrs, $contents, $styles;
 	protected $fullAttr, $fullContent, $close , $parsed;
+    protected $style;
 
-	/**
+    /**
 	 *
 	 * @param string $tag
 	 * @param boolean $close
-	 * @return boolean
-	 * @
 	 */
-	function __construct ($tag, $close = true){
-		if (!$tag || is_int($tag)) return false;
-		$this->tag = strtolower($tag);
-		$this->close = (bool) $close;
-		$this->attrs = array();
-		$this->style = array();
-		$this->contents = array();
-		$this->parsed = false;
-		
+	public function __construct ($tag, $close = true){
+		if ($tag and  !is_int($tag)) {
+            $this->tag = strtolower($tag);
+            $this->close = (bool) $close;
+            $this->attrs = array();
+            $this->style = array();
+            $this->contents = array();
+            $this->parsed = false;
+        }
 	}
 
 	
@@ -53,18 +52,24 @@ class Html{
 	 */
 	function __invoke() {
 		echo $this->parse();
+	}
 
+    /**
+     * @param $t
+     * @return self $this
+     */
+	public function proto($t) {
+		if ($t === $this) {
+		    return  $this;
+        }
+		//else return $self;
 	}
-	function proto($t){
-		if ($t === $this)
-			return  $this;
-		else return $self;
-			
-	}
-	/**
-	 *@deprecated
-	 * @param array $array
-	 */
+
+    /**
+     * @deprecated
+     * @param array $array
+     * @return Html
+     */
 	final function addAttr ($array){
 
 		return $this->attr($array);
@@ -72,7 +77,7 @@ class Html{
 	/**
 	 * @desc <b style='font-size:11px;color:blue'>
 	 * Assign attributes to html object</b>
-	 * @param unknown $array
+	 * @param array $array
 	 * @return \com\crysto\html\Html
 	 * @example $html->attr(array('class'=>'myclass'));
 	 */
@@ -85,19 +90,22 @@ class Html{
 		return $this;
 	}
 
-	/**
-	 *@deprecated
-	 * @param array|string $array
-	 */
+    /**
+     * @deprecated
+     * @param array|string $array
+     * @return Html
+     */
 	final function addStyle($array){
 
 		return $this->style($array);
 	}
-	/**
-	 * @desc <b style='font-size:11px;color:blue'>
-	 * set style for html object</b>
-	 * @param array|string $array
-	 */
+
+    /**
+     * @desc <b style='font-size:11px;color:blue'>
+     * set style for html object</b>
+     * @param array|string $array
+     * @return Html
+     */
 	final function style($array){
 		if (is_array($array))
 			foreach($array as $name=>$value){
@@ -108,19 +116,21 @@ class Html{
 		}
 		return $this;
 	}
-	/**
-	 *@deprecated
-	 * @param string|array $content
-	 * @return void
-	 */
+
+    /**
+     * @deprecated
+     * @param string|array $content
+     * @return Html
+     */
 	public function addContent ($content){
 		return $this->add($content);
 	}
-	/**
-	 *
-	 * @param string|array $content
-	 * @return void
-	 */
+
+    /**
+     *
+     * @param string|array $content
+     * @return Html
+     */
 	public function add($content){
 		if (!$this->close) return $this;
 		if (is_array($content))
@@ -135,7 +145,7 @@ class Html{
 	 */
 	public function contentToString(){
 		if (!$this->close) return '';
-			$tmp = new Html('');
+			//$tmp = new Html('');
 			//var_dump($this->contents)
 			//$tmp->add();
 			return implode('', $this->contents);
@@ -164,10 +174,10 @@ class Html{
 	 */
 	function __tostring(){
 		return $this->parse();
-		 $str = $this->parse();
-		if(is_string($str))
-			return $str;
-		else return ''; 
+//		 $str = $this->parse();
+//		if(is_string($str))
+//			return $str;
+//		else return '';
 	}
 	/**
 	 *Parse object as string (html tags)
@@ -201,8 +211,10 @@ class Html{
 				if($value)
 					$this->addStyle(array( $s[0] => $s[1]));
 			}
-		}else
-			$s = explode(':', $list);
+		}else{
+		    $s = explode(':', $str);
+            $this->addStyle([$s[0] => $s[1]]);
+        }
 	}
 	/**
 	 * create the string representation of styles
@@ -232,7 +244,6 @@ class Html{
 	}
 	/**
 	 * create the string|html representation of content
-	 * @return string
 	 */
 	final private function parseContent(){
 		 $this->fullContent = '';
@@ -240,13 +251,13 @@ class Html{
 			$this->fullContent .= $this->contents[$i];
 		} 
 		return ;
-		 $this->fullContent = '';
-		for($i = 0; $i < count($this->contents); $i++){
-			if($this->contents[$i] instanceof Html) 
-				$this->fullContent .= $this->contents[$i]->parse();
-			else
-				$this->fullContent .= $this->contents[$i];
-		} 
+//		 $this->fullContent = '';
+//		for($i = 0; $i < count($this->contents); $i++){
+//			if($this->contents[$i] instanceof Html)
+//				$this->fullContent .= $this->contents[$i]->parse();
+//			else
+//				$this->fullContent .= $this->contents[$i];
+//		}
 	}
 }
 

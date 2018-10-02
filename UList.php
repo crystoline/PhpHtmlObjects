@@ -1,11 +1,13 @@
 <?php
 namespace com\crysto\html;
+
+
 /**
  * HTML Unorder list
  * @author crysto
  * @namespace com\crysto\html
  */
-class UList extends \com\crysto\html\Html{
+class UList extends Html{
 	/**
 	 * @param string $type
 	 */

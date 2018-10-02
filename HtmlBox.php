@@ -1,11 +1,13 @@
 <?php
 namespace com\crysto\html;
+
+
 /**
  * @desc Create HTML element with closing tag
  * @author crysto
  *
  */
-class HtmlBox extends \com\crysto\html\Html{
+class HtmlBox extends Html{
 	/**
 	 *
 	 * @param string $tag
@@ -13,7 +15,7 @@ class HtmlBox extends \com\crysto\html\Html{
 	 */
 	use HtmlTrait;
 	
-	function  __construct($tag,$attrs=array()){
+	function  __construct($tag, $attrs=array()){
 		$close = true;
 		parent::__construct($tag, $close );
 		if($attrs) $this->attr($attrs);
@@ -29,7 +31,7 @@ class HtmlBox extends \com\crysto\html\Html{
 		$i = (int) $i;
 		if (!$i) $i = 1;
 		for ($n=0; $n<$i;$n++)
-			$this->add(new \com\crysto\html\Html('br', false));
+			$this->add(new Html('br', false));
 		return $this;
 	}
 

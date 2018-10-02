@@ -31,7 +31,7 @@ final class Anchor extends HtmlBox{
 	}
 	/**
 	 * @deprecated
-	 * @param unknown $content
+	 * @param any $content
 	 */
 	final function setContent($content){
 		$this->add($content);
